@@ -1,0 +1,69 @@
+﻿@model TestDemo.Models.ListOfMovies
+
+@{
+    ViewData["Title"] = "Show Movie";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <div class="form-group">
+        <div>
+
+            <div class="alert-danger">
+                @Html.ValidationSummary(false)
+            </div>
+
+            <table class="table table-condensed">
+                <tr>
+                    <th>
+                        Poster
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Rating
+                    </th>
+                </tr>
+                @{
+
+                    int i = 0;
+
+                    foreach (var item in Model.Movies)
+                    {
+                        string imagePath = "~/images/" + (Model.Movies[i].ImagePath ?? "noimage.jpg");
+                        @Html.HiddenFor(o => o.Movies[i].Id)
+                        <tr>
+                            <td>
+                                <img src="@imagePath" asp-append-version="true" width="80" height="90" />
+                                @Html.HiddenFor(o => o.Movies[i].ImagePath)
+                            </td>
+
+                            <td>
+                                @Html.EditorFor(o => o.Movies[i].Title)
+                            </td>
+                            <td>
+                                @Html.EditorFor(o => o.Movies[i].Rating)
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                }
+            </table>
+        </div>
+    </div>
+
+    <hr />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10 text-center">
+            <input type="submit" value="Re-Order Ratings" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}

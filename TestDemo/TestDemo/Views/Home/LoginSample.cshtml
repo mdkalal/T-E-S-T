@@ -1,0 +1,50 @@
+﻿@model TestDemo.Models.HomeModel
+
+@{
+    ViewData["Title"] = "Login Test";
+}
+
+<h1>Login Test</h1>
+
+<div class="text-center">
+
+    <a href="../order/placeorder">Order test</a>
+    <p>
+        <a href="../movie/showmovie">Visit W3Schools</a>
+    </p>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    //    <div class="form-horizontal">
+    //    <div class="alert alert-danger">
+<div class="form-group">
+    <div class="col-md-12">
+        @Html.LabelFor(o => o.EmailAddress)
+        @Html.EditorFor(o => o.EmailAddress)
+        @Html.ValidationSummary(false)
+    </div>
+    <div class="col-md-12">
+        @Html.LabelFor(o => o.OrderNumber)
+        @Html.EditorFor(o => o.OrderNumber)
+        @Html.ValidationSummary(false)
+    </div>
+
+
+
+</div>
+
+
+    <hr />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10 text-center">
+            <input type="submit" value="Submit" class="btn btn-primary" />
+        </div>
+    </div>
+       
+}
+
+
+

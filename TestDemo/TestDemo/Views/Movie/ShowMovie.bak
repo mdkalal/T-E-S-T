@@ -1,0 +1,99 @@
+﻿@model TestDemo.Models.ListOfMovies
+
+@{
+    ViewData["Title"] = "ShowMovie";
+    string imagePath = "~/images/anewhope.png" ?? "noimage.jpg";
+    //string imagePath = "~/images/" + (Model.PhotoPath ?? "noimage.jpg");
+}
+
+
+<h1>ShowMovie</h1>
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+        "Confirmation", "Movie", FormMethod.Post
+    </table>*@
+
+
+<hr />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 text-right">
+                <input type="button" value="Add Product" class="btn btn-primary" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-12">
+                <table class="table table-condensed table-hover">
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Image
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Rating
+                        </th>
+                    </tr>
+                    @{
+                        //To make unique Id
+                        int i = 0;
+                        foreach (var item in Model.Movies)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.EditorFor(o => o.Movies[i].Id)
+                                </td>
+
+                                <td>
+                                    <img src="@imagePath" asp-append-version="true" width="80" height="90" />
+                                </td>
+
+                                <td>
+                                    @Html.EditorFor(o => o.Movies[i].Title)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(o => o.Movies[i].Rating)
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 text-center">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}

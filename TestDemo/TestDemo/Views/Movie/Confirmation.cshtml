@@ -1,0 +1,78 @@
+﻿
+@model TestDemo.Models.ListOfMovies
+
+@{
+    ViewData["Title"] = "Confirmation";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@*<p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+
+<hr />
+@using (Html.BeginForm("Confirmation", "Movie", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-12">
+                <table class="table table-condensed table-hover">
+                    <tr>
+                        <th>
+                            ID
+                        </th>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Rating
+                        </th>
+                    </tr>
+                    @{
+                        //To make unique Id
+                        int i = 0;
+                        foreach (var item in Model.Movies)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.EditorFor(o => o.Movies[i].Id)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(o => o.Movies[i].Title)
+                                </td>
+                                <td>
+                                    @Html.EditorFor(o => o.Movies[i].Rating)
+                                </td>
+                            </tr>
+                            i++;
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+        <hr />
+    </div>
+}
